@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BB-Monster Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            background-color: #a2d2ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 0 auto 10px auto;
+        }
+        .profile-name {
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: bold;
+            margin: 0;
+        }
+        h1 {
+            color: #0077b6;
+            margin-bottom: 30px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .section-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 5px solid #00b4d8;
+        }
+        .section-card h2 {
+            color: #0077b6;
+            margin-top: 0;
+            border-bottom: 2px solid #caf0f8;
+            padding-bottom: 8px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #0077b6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Profile Section -->
+    <div class="profile-container">
+        <!-- Temporary placeholder emoji for the cute blue monster until you add your own image source -->
+        <div class="profile-pic">👾</div>
+        <p class="profile-name">Zayan Rahman</p>
+    </div>
+
+    <!-- Main Greeting -->
+    <h1>Hello BB-Monster!</h1>
+
+    <!-- Dashboard Content Sections -->
+    <div class="dashboard-grid">
+
+        <!-- Notes Section -->
+        <div class="section-card">
+            <h2>Notes</h2>
+            <p>Welcome to your learning space! This is where you can keep an eye out for everyday's class' notes.</p>
+            <p>Add a new paragraph tag for every new set of notes you want to keep track of here.</p>
+        </div>
+
+        <!-- Coursebooks Section -->
+        <div class="section-card">
+            <h2>Coursebooks</h2>
+            <ul>
+                <li><a href="https://w3schools.com" target="_blank">HTML Coursebook</a></li>
+                <li>Coursebook 2 (Link coming soon)</li>
+                <li>Coursebook 3 (Link coming soon)</li>
+            </ul>
+        </div>
+
+        <!-- Tasks in Stock Section -->
+        <div class="section-card">
+            <h2>Tasks in Stock</h2>
+            <ul>
+                <li>Review the tags learned today</li>
+                <li>Practice creating a basic list</li>
+                <li>Set up the profile image file</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
