@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntax Bytes: My First HTML Guide</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f9f9fb;
+            --accent: #00cec9;
+            --code-bg: #1e272e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 280px;
+            background-color: white;
+            border-right: 2px solid #e1e8ed;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        nav h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        nav p {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 8px;
+        }
+
+        nav a {
+            display: block;
+            padding: 10px 15px;
+            color: #636e72;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        /* Main Content Container */
+        main {
+            margin-left: 280px;
+            flex-1: 1;
+            padding: 40px 60px;
+            max-width: 900px;
+        }
+
+        .chapter {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            display: none;
+        }
+
+        .chapter.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #485460;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            background-color: var(--code-bg);
+            color: #f5f6fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            overflow-x: auto;
+            margin: 20px 0;
+            position: relative;
+            text-align: left;
+        }
+
+        .code-label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-bottom-left-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* Live Preview Simulator */
+        .preview-box {
+            background-color: #fff;
+            border: 2px solid #dcdde1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .preview-label {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .badge {
+            background-color: #ffeaa7;
+            color: #d63031;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        /* Controls */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+        }
+        hr {
+            border: none;
+            height: 3px;
+            background-color: #CCCCFF;
+        }
+        h3 {
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Book Sidebar Navigation -->
+    <nav>
+        <h2>Syntax Bytes</h2>
+        <p>HTML Coursebook</p>
+        <ul>
+            <li><a href="#" id="link-1" class="nav-link active" onclick="showChapter(1)">1. Introduction</a></li>
+            <li><a href="#" id="link-2" class="nav-link" onclick="showChapter(2)">2. Elements & Tags</a></li>
+            <li><a href="#" id="link-3" class="nav-link" onclick="showChapter(3)">3. Text Formatting</a></li>
+            <li><a href="#" id="link-4" class="nav-link" onclick="showChapter(4)">4. Hyperlinks & Images</a></li>
+            <li><a href="#" id="link-5" class="nav-link" onclick="showChapter(5)">5. Organizing Information</a></li>
+            <li><a href="#" id="link-6" class="nav-link" onclick="showChapter(6)">6. User Interaction</a></li>
+            <li><a href="#" id="link-7" class="nav-link" onclick="showChapter(7)">7. The Invisible Boxes</a></li>
+            <li><a href="#" id="link-8" class="nav-link" onclick="showChapter(8)">8. Bonus Chapter: Power-ups</a></li>
+            <li><a href="#" id="link-9" class="nav-link" onclick="showChapter(9)">9. Next Steps</a></li>
+        </ul>
+    </nav>
+
+    <!-- Book Main Chapters -->
+    <main>
+        <!-- Chapter 1 -->
+        <div id="ch-1" class="chapter active">
+            <h1>Chapter 1: Introduction</h1>
+            <p>Welcome to <strong>the Syntax Bytes HTML Coursebook</strong>! HTML stands for <strong>HyperText Markup Language</strong>. It is the absolute foundation of everything you see on the World Wide Web.</p>
+            <p>Think of a website like building a house. HTML isn't the paint or the furniture—it's the <strong>structural skeleton</strong>. It places the walls, the doors, and the window frames where they belong. In fact, this coursebook's foundation was made with HTML too!</p>
+            <hr>
+            <p>Let's look at the anatomy of an HTML document:</p>
+            <ol>
+                <li><span class="badge">&lt;!DOCTYPE html&gt;</span> &rarr; It's a declaration that's basically saying 'This is a HTML document'.</li><br>
+                <li><span class="badge">&lt;html&gt; &lt;/html&gt;</span> &rarr; This is the root element from within which, all the entire page structure branches out. It's best practices to add the <em>lang</em> attribute to set the language in which the words should be written in.</li><br>
+                <li><span class="badge">&lt;head&gt; &lt;/head&gt;</span> &rarr; This part of our HTML stores invisible metadata like configurations and page titles.</li><br>
+                <li><span class="badge">&lt;title&gt; &lt;/title&gt;</span> &rarr; It is written in the head tag and sets the title of the web page visible on the tab.</li><br>
+                <li><span class="badge">&lt;body&gt; &lt;/body&gt;</span> &rarr; Contains the visible content which the user interacts with.</li>
+            </ol><br>
+            <hr>
+            <p><i><strong>Quick Fact:</strong> Have you ever seen elements inside another? They're called nested elements.</i></p>
+            <div class="code-container"><span class="code-label">HTML</span>&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="en"&gt;<br>
+&nbsp;&nbsp;&lt;head&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;My First Page&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;/head&gt;<br>
+&lt;body&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hello World!&lt;/h1&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+&lt;/html&gt;</div>
+            <div class="nav-buttons">
+                <button disabled>&larr; Previous</button>
+                <button onclick="showChapter(2)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Chapter 2 -->
+        <div id="ch-2" class="chapter">
+            <h1>Chapter 2: Elements & Tags</h1>
+            <p>HTML uses tags to build components. Tags are words or letters trapped inside angle brackets like this: <span class="badge">&lt;tagname&gt;</span>. Most tags are in pairs and have closing tags, such as <span class="badge">&lt;h1&gt;</span> <span class="badge">&lt;/h1&gt;</span>, but some of them don't have ending tags, so they are called self-ending tags. Self ending tags are ones such as <span class="badge">&lt;hr&gt;</span> and <span class="badge">&lt;br&gt;</span></p>
+            <p>Most elements have an <strong>opening tag</strong>, the <strong>content</strong>, and a <strong>closing tag</strong> (which features a forward slash <span class="badge">/</span>).</p>
+            <p>Some basic elements (with, if they have, their ending tags):</p>
+            <ul>
+                <li><span class="badge">&lt;h1&gt; &lt;/h1&gt;</span> &rarr; The main and largest heading, often used at the very beginning of a page.</li><br>
+                <li><span class="badge">&lt;p&gt; &lt;/p&gt;</span> &rarr; Used for creating a paragraph.</li><br>
+                <li><span class="badge">&lt;pre&gt; &lt;/pre&gt;</span> &rarr;  Unlike the paragraph tag, which wraps text and deletes extra spacing by default, this tag presents text exactly how it was written in the source code. So, if you give ten spaces in a &lt;pre&gt; tag, all ten spaces will come, and if you type a very long sentnece, it'll extend all the way beyond the screen, and you'll hae to scroll horizontally to read it!</li><br>
+                <li><span class="badge">&lt;br&gt;</span> &rarr; A self-ending tag used for creating a line break.</li><br>
+                <li><span class="badge">&lt;hr&gt;</span> &rarr; Another useful self-ending tag, which stands for <i><b>horizontal rule</b>,</i> and makes a visible line break by creating a horizontal line. It can show a change of topic in a website. By default, it shows a thin, grey line, but you can change its thickness and color, or other properties using CSS.</li><br>
+            </ul>
+            <hr><br>
+            <p><i><strong>Quick Fact:</strong> There are 6 headings, &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;h4&gt;, &lt;h5&gt; and &lt;h6&gt;, with their respective ending tags.</i></p>
+            <div class="code-container"><span class="code-label">HTML</span>&lt;h2&gt;This is a heading&lt;/h2&gt;<br>
+            &lt;p&gt;This is a paragraph&lt;/p&gt;</div>
+            <div class="preview-box">
+                <span class="preview-label">Live Preview:</span>
+                <h2>This is a heading</h2>
+                <p>This is a paragraph</p>
+            </div>
+            <div class="nav-buttons">
+                <button onclick="showChapter(1)">&larr; Previous</button>
+                <button onclick="showChapter(3)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Chapter 3 -->
+        <div id="ch-3" class="chapter">
+            <h1>Chapter 3: Text Formatting</h1>
+            <p>Let's make text styling in all elements (other than headings) clean and clear! We can make fonts stand out boldly, slant with emphasis, or display key definitions directly.</p>
+            <p>We use <span class="badge">&lt;strong&gt;</span> or <span class="badge">&lt;b&gt;</span> for defining that we want to make the text bold and <span class="badge">&lt;em&gt;</span> or <span class="badge">&lt;i&gt;</span> for defining emphasis (italics).
+            <p><b>Quick Fact: </b>Formatting elements were designed to display special types of text, and the other 4 types will be taught after you have learnt the basic anatomy of a HTML website.</p>
+            <div class="code-container"><span class="code-label">HTML</span>&lt;p&gt;Make your text &lt;strong&gt;super strong&lt;/strong&gt; or &lt;em&gt;nicely slanted&lt;/em&gt;!&lt;/p&gt;
+                &lt;/dl&gt;</div>
+            <div class="preview-box">
+                <span class="preview-label">Live Preview:</span>
+                <p>Make your text <strong>super strong</strong> or <em>nicely slanted</em>!</p>
+            </div>
+            <div class="nav-buttons">
+                <button onclick="showChapter(2)">&larr; Previous</button>
+                <button onclick="showChapter(4)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Chapter 4 -->
+        <div id="ch-4" class="chapter">
+            <h1>Chapter 4: Hyperlinks & Images</h1>
+            <p>Websites wouldn't be very fun if you couldn't move between them or see pictures! We use the anchor tag <span class="badge">&lt;a&gt;</span> for hyperlinks and <span class="badge">&lt;a&gt;</span> for graphics.</p>
+            <p>Notice that images do not have a closing tag. They are self-closing and hold elements called attributes like <strong>src</strong>, for specifying the source (which can come as an image address or a downloaded image path) and <strong>alt</strong> (alternate text description), in case the image cannot load. The <span class="badge">a</span> tag has the <strong>href</strong> attribute for specifying the link address and between the starting and closing tag, you can write the text that'll lead to the link.</p>
+            <p><i><strong>Quick Fact:</strong> If an image cannot upload to the web page, the <span class="badge">alt</span> attribute helps the user understand what the image was supposed to be about.</i></p>
+            <div class="code-container"><span class="code-label">HTML</span>&lt;a href="https://syntaxbytes.org"&gt;Visit Our Homepage&lt;/a&gt;<br>
+&lt;img src="syntaxbytes.png" alt="SyntaxBytes logo"&gt;</div>
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <a href="https://example.com" target="_blank" style="color: var(--primary); font-weight: bold;">Visit Our Homepage</a><br>
+                <img src="SyntaxBytes.png" alt="SyntaxBytes logo" style="height: 100px; width: 100px;">
+            </div>
+            <div class="nav-buttons">
+                <button onclick="showChapter(3)">&larr; Previous</button>
+                <button onclick="showChapter(5)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Chapter 5 -->
+        <div id="ch-5" class="chapter">
+            <h1>Chapter 5: Organizing Information</h1>
+             <p>
+        Imagine looking at a messy bedroom floor covered in clothes, toys, and books. To clean it up, you need different types of containers—like a laundry basket for clothes and a shelf for books. 
+    </p>
+    <p>
+        Websites work the exact same way! When you have a lot of words or data, you can't just throw them onto the page. HTML gives us two powerful structural containers to organize information cleanly: <strong>Lists</strong> for simple grouped items, and <strong>Tables</strong> for structured grid data.
+    </p>
+     <h3>Bringing Order with Lists</h3>
+    <p>Lists help us group related items together. HTML gives us three distinct choices depending on whether the sequence matters:</p>
+    <ul>
+        <li><strong>Unordered Lists: </strong><span class="badge">&lt;ul&gt; &lt;/ul&gt;</span>&rarr; Creates a simple bullet pointed sequence when order doesn't matter (like a grocery shopping list).</li><br>
+        <li><strong>Ordered Lists: </strong><span class="badge">&lt;ol&gt; &lt;/ol&gt;</span> &rarr; Creates a numbered sequence when order is vital (like step-by-step game levels or recipes).</li><br>
+        <li><strong>Description List:</strong> <span class="badge">&lt;dl&gt; &lt;/dl&gt;</span> &rarr; Nest the paired tags <span class="badge">&lt;dt&gt;</span> <i>(<b>Description Term</b>, or, historically known as <b>Definition Term</b>)</i> and <span class="badge">&lt;dd&gt;</span> <i>(<b>Description Details</b>, or, historically known as <b>Definition Description</b>)</i> inside of the <span class="badge">&lt;dl&gt;</span> <i>(<b>Description List</b>)</i> tag, if you want to define a definition directly on a new line with some left margin indent.</li>
+    </ul><br><hr>
+    <p><strong>Quick Fact:</strong> No matter which list type you pick, every single item inside, each, must be wrapped in a <span class="badge">&lt;li&gt;</span> <strong><em>(List Item)</em></strong> tag.</p>
+    <div class="code-container">
+                <span class="code-label">HTML</span>
+&lt;p&gt;&lt;strong&gt;Shopping List (Unordered)&lt;/strong&gt;&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;ul&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Chocolate Cookies&lt;/li&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Apple Juice&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;/ul&gt;<br><br>
+
+&lt;p&gt;&lt;strong&gt;Instructions (Ordered)&lt;/strong&gt;&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;ol&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Open the box&lt;/li&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Eat the cookie&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;/ol&gt;</div>
+
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <p><strong>Shopping List (Unordered):</strong></p>
+                <ul>
+                    <li>Chocolate Cookies</li>
+                    <li>Apple Juice</li>
+                </ul>
+                <p><strong>Instructions (Ordered):</strong></p>
+                <ol>
+                    <li>Open the box</li>
+                    <li>Eat the cookie</li>
+                </ol>
+            </div><br>
+
+            <hr><br>
+
+            <h3>Managing Grid Layouts with Tables</h3>
+            <p>Tables allow us to display grid data efficiently using horizontal rows and vertical column alignments. Instead of standard text lines, tables are built using specific layout blocks:</p>
+            <ul>
+                <li><span class="badge">&lt;table&gt;</span> &rarr; The main wrapper container for the grid data area.</li><br>
+                <li><span class="badge">&lt;tr&gt;</span> &rarr; Defines and stands for <strong><em>Table Row</em></strong>. You can have as many rows as you like in a table, only, make sure that the number of cells in each row are the same.</li><br>
+                <li><span class="badge">&lt;th&gt;</span> &rarr; Do you want to create a table header in a row instead of an ordinary cell? Replace the <span class="badge">&lt;td&gt;</span> tag with this tag to create a bolded <strong><em>Table Header</em></strong> for a cell column title.</li><br>
+                <li><span class="badge">&lt;td&gt;</span> &rarr; It defines each cell in a table and stands for <strong><em>Table Data</em></strong>. A table cell can contain all sorts of HTML elements: text, images, lists, links, etc.</li><br>
+            </ul><br><hr>
+            <p><strong>Quick Fact:</strong> To make your table look elegant and formal, you must use CSS, as a default table doesn't have borders, paddings or margins. Also, modern-day browser versions automatically delete the margin, so that you can remake it completely from scratch. Therefore, if your text inside the &lt;dd&gt; tag isn't coming with some indent, use <span class="badge">style="margin-left: 40px"</span> inside your &lt;dd&gt; tag. This is a useful CSS code for adding margin. 40px means the same amount of margining as 4 tabs.</p>
+            <div class="code-container"><span class="code-label">HTML</span>&lt;table&gt;<br>
+    &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Name&lt;/th&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Age&lt;/th&gt;<br>
+    &nbsp;&nbsp;&lt;/tr&gt;<br>
+    &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Manha&lt;/td&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;11&lt;/td&gt;<br>
+    &nbsp;&nbsp;&lt;/tr&gt;<br>
+&lt;/table&gt;</div>
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                    </tr>
+                    <tr>
+                        <td>Manha</td>
+                        <td>11</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="nav-buttons">
+                <button onclick="showChapter(4)">&larr; Previous</button>
+                <button onclick="showChapter(6)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Chapter 6 -->
+        <div id="ch-6" class="chapter">
+            <h1>Chapter 6: User Interaction</h1>
+            <p>Forms turn static web documents into interactive experiences. They let your website collect input from users using text boxes, buttons, selections, and checkboxes.</p>
+            <p>The input from the user then arrives at the erver, where it is used for purposeful actions, such as setting a profile. The inputs can also be changed from time-to-time, which is why you can change your profile picture on sites like GitHub, or reset your username over and over.</p><hr>
+            <p>Let's take a look at how a simple HTML form can be set, with pair and self-closing tags:</p>
+            <ul>
+                <li><span class="badge">&lt;form&gt; &lt;/form&gt;</span> &rarr; The wrapper that collects all input variables. The rest of the tags are all written inside it, and will stay within it unless they exit the space between the two tags.</li><br>
+                <li><strong>(Optional)</strong> <span class="badge">&lt;fieldset&gt; &lt;/fieldset&gt;</span> &rarr; Used for creating a box with a thin border around your form. It groups related data into one place, so that they don't look stranded like people roaming around deserts.</li><br>
+                <li><strong>(Optional, if you use a fieldset)</strong> <span class="badge">&lt;legend&gt; &lt;/legend&gt;</span> &rarr; It acts as a caption for the fieldset.</li><br>
+                <li><span class="badge">&lt;input&gt;</span> &rarr; A self-closing tag that changes behaviour and shape depending on its <span class="badge">type="..."</span> attribute (like text, email, password, or checkbox).</li><br>
+                <li><span class="badge">&lt;label&gt; &lt;/label&gt;</span> &rarr; It defines a label for the <span class="badge">input</span>, <span class="badge">select</span> and <span class="badge">textarea</span> tags.</li><br>
+                <li><span class="badge">&lt;textarea&gt; &lt;/textarea&gt;</span> &rarr; Often used in forms for comments, and is followed by the <span class="badge">row="..." col="..."</span> attributes. They specify how many rows and column sized should the textbox be. </li><br>
+                <li><span class="badge">&lt;input type="submit" value="Submit"&gt;</span> or <span class="badge">&lt;button type="submit"&gt;Submit&lt;/button&gt;</span> &rarr; Acts as an un-interactivez, plain submit button. For making it interactive, such as showing results or a popup, as you see in Sign Up pages, you need to use JS.</li>
+            </ul><br><hr>
+            <p><strong>Quick Fact:</strong> The <span class="badge">value</span> attribute has many different meanings! In submitting inputs through a button, it sets the tet displayed on the face of the button. In selections, it sets the data submitted to a server when the user clicks an option. For example, the user may click and see an option titled as Volvo, but when they submit it, the server will recieve volvo-v869. And in ordered lists, they allow us to skip the order of the item, for example, turning the 2nd item into the 10th item while staying in the same position!</p>
+            <div class="code-container"><span class="code-label">HTML</span>&lt;form&gt;<br>
+    &nbsp;&nbsp;&lt;input type="text" placeholder="Type your name here..."&gt;<br>
+     &nbsp;&nbsp;&lt;button type="submit"&gt;Submit&lt;/button&gt;<br>
+&lt;/form&gt;</div>
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <form onsubmit="return false;">
+                    <input type="text" placeholder="Type your name here...">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="nav-buttons">
+                <button onclick="showChapter(5)">&larr; Previous</button>
+                <button onclick="showChapter(7)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Chapter 7 -->
+        <div id="ch-7" class="chapter">
+            <h1>Chapter 7: The Invisible Boxes</h1>
+            <p>When assembling professional interfaces, you need invisible structural blocks to group distinct component sections together neatly. This layout grouping is exactly what the <span class="badge">&lt;div&gt;</span> tag handles.</p>
+            <p>Div stands for "division." It creates an invisible box on the page. It doesn't change how the text looks by default, but it lets you group elements together so you can style them later with CSS or arrange them on the screen.</p>
+            <hr><br>
+            <h3>Block vs. Inline: The Two Types of Boxes</h3><br>
+            <ul>
+                <li><strong>(Block Element)</strong> <span class="badge">&lt;div&gt; &lt;/div&gt;</span> &rarr; Takes up the full width of the screen. It always starts on a brand new line, forcing everything else below it.</li><br>
+                <li><strong>(Inline Element)</strong> <span class="badge">&lt;span&gt; &lt;/span&gt;</span> &rarr; A tiny container used for small bits of text <em>inside</em> a paragraph. It does not start on a new line, and is used for marking a piece of text or a part of a document</li>
+            </ul><br><hr><br>
+            <p><strong>Quick Fact:</strong> Don't be too sad if your boxes aren't popping up. Its because they are invisible by default, and to make them pop up, you need to use CSS!</p>
+            <div class="code-container"><span class="code-label">HTML</span>&lt;div style="border: 3px #6c5ce7 double; text-align: center; padding: 10px;"&gt;<br> &nbsp;&nbsp;&lt;span style="background-color: antiquewhite; color:#4b4b85f7; font-family: 'Comic Sans MS', cursive; padding: 5px;"]&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Greetings!<br>
+    &nbsp;&nbsp;&lt;/span&gt;<br>
+&lt;/div&gt;
+            </div>
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <div style="border: 3px #6c5ce7 double; text-align: center; padding: 15px; border-radius: 4px; font-size: 1.2rem; font-weight: bold; color: #6c5ce7; background-color: #f9f9fb;">
+                    <span style="background-color: antiquewhite; color:#4b4b85f7; font-family: 'Comic Sans MS', cursive; padding: 5px;">Greetings!</span>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button onclick="showChapter(6)">&larr; Previous</button>
+                <button onclick="showChapter(8)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+                <!-- Bonus Chapter -->
+        <div id="ch-8" class="chapter">
+            <h1>Bonus Chapter: Hidden Gems</h1>
+            <p>Welcome to the ultimate HTML Power-Up! Now that you know how to build a basic webpage layout, it is time to look at some advanced tools that add precise text formatting and interactive graphic maps.</p>
+            
+            <hr><br>
+            
+            <h3>Part 1: Scientific & Math Formatting</h3><br>
+            <p>Sometimes you need to format text for math equations, chemical formulas, or highlight a critical rule snippet on the screen:</p>
+            <ul>
+                <li><span class="badge">&lt;mark&gt; &lt;/mark&gt;</span> &rarr; Highlights text in bright neon yellow.</li><br>
+                <li><span class="badge">&lt;sub&gt; &lt;/sub&gt;</span> &rarr; Stands for <strong><em>Subscript</em></strong> and lowers characters slightly <sub>below</sub> the text baseline (like the 2 in H<sub>2</sub>O).</li><br>
+                <li><span class="badge">&lt;sup&gt; &lt;/sup&gt;</span> &rarr; Stands for <strong><em>Superscript</em></strong> and raises characters slightly <sup>above</sup> the text baseline (like exponents in E=mc<sup>2</sup>).</li>
+            </ul>
+
+            <p><strong>Quick Fact: </strong>You cna change the highlight color of the &lt;mark&gt; tag using the CSS <span class="badge">background-color: ;</span> property. Write the name of your color before the semicolon!</p>
+
+            <div class="code-container">
+                <span class="code-label">HTML</span>
+&lt;p&gt;Don't forget to &lt;mark&gt;drink some water&lt;/mark&gt;!&lt;/p&gt;<br>
+&lt;p&gt;The chemical formula for water is H&lt;sub&gt;2&lt;/sub&gt;O.&lt;/p&gt;<br>
+&lt;p&gt;A single milliliter of pond water can hold up to 10&lt;sup&gt;6&lt;/sup&gt; (one million) bacterial cells.&lt;/p&gt;</div>
+
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <p>Don't forget to <mark>drink some water</mark>!</p>
+                <p>The chemical formula for water is H<sub>2</sub>O.</p>
+                <p>A single milliliter of pond water can hold up to 10<sup>6</sup> (one million) bacterial cells.</p>
+            </div><br>
+
+            <hr><br>
+
+            <h3>Part 2: Graphic Navigation (&lt;map&gt; & &lt;area&gt;)</h3>
+            <p>An <strong>Image Map</strong> allows you to map out custom shapes directly onto a picture, turning separate pieces of a single image into different clickable links!</p>
+            <ul>
+                <li><strong><span class="badge">usemap</span> attribute:</strong> &rarr; Placed inside an <span class="badge">&lt;img&gt;:</span> tag with a hashtag prefix (like <span class="badge">&lt;#classroom&gt;:</span>) to connect the picture to your map.</li><br>
+                <li><span class="badge">&lt;map&gt;:</span> &rarr; The main tracking container holding your link coordinates together. You set it a <span class="badge">name</span> attribute, which is the name of the map in the image tag, and then your code knows which image is being used by the map</li><br>
+                <li><span class="badge">&lt;area&gt;</span> &rarr; Defines the shape (<span class="badge">rect</span> <span class="badge">circle</span> or <span class="badge">poly</span> &rarr;) and grid coordinates per a single clickable zone.</li>
+            </ul>
+            <br><hr><br>
+            <p><strong>Quick Fact: </strong>Well, the tricky part of a applying grid coordinates is <em>knowing where they are</em>. To make this easier, first bring your image to your website with the height and width you want to set it to, take a screenshot, save it and then go to <a href="https://www.image-map.net/">this website</a>. Upload your image and draw over where you want to create a clickable zone. Now, set the link of the websie which it shoukd take you to if you click on the zone, set the title and click the green <strong style="color: white; background-color: rgb(19, 199, 19); border-radius: 8px; padding: 10px; margin: 10px;">Show Me the Code!</strong> button. Copy the code and paste it to your raw code. Done!</p>
+
+            <div class="code-container">
+                <span class="code-label">HTML</span>
+&lt;img src="classroom.png" alt="Classroom" usemap="#classroom"&gt;<br>
+<br>
+&lt;map name="classroom"&gt;<br>
+&nbsp;&nbsp;&lt;area target="" alt="Whiteboard" title="Whiteboard" href="whiteboard.html" coords="262,48,480,184" shape="rect"&gt;<br>
+&nbsp;&nbsp;&lt;area target="" alt="Bookshelf" title="Bookshelf" href="bookshelf.html" coords="12,69,190,254" shape="rect"&gt;<br>
+&lt;/map&gt;</div>
+
+            <div class="preview-box">
+                <span class="preview-label">Live Preview:</span>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXZyHgwokqBkqSyNOLaMT6v68nQPBwhZ0R7zcHAoqkPw&amp;s=10" usemap="#image-map" width="500px">
+
+<map name="image-map">
+   <area target="" alt="Whiteboard" title="Whiteboard" href="whiteboard.html" coords="262,48,480,184" shape="rect">
+    <area target="" alt="Bookshelf" title="Bookshelf" href="bookshelf.html" coords="12,69,190,254" shape="rect">
+</map>
+            </div>
+            <br><hr><br>
+                       <h3>Part 3: Text Sizes & Strikethroughs</h3>
+            <p>These elements help clarify text changes, price drops, or small disclaimers:</p>
+            <ul>
+                <li><span class="badge">&lt;s&gt; &lt;/s&gt;</span> &rarr; Draws a line straight through text that is no longer accurate or relevant (perfect for showing old sale prices).</li><br>
+                <li><span class="badge">&lt;small&gt; &lt;/small&gt;</span> &rarr; Makes text size one step smaller than regular paragraph text (great for copyright tets or terms and conditions).</li><br>
+                <li><span class="badge">&lt;del&gt; &lt;/del&gt;</span> & <span class="badge">&lt;ins&gt; &lt;/ins&gt;</span> &rarr; Used together for editing text. <span class="badge">&lt;del&gt;</span> shows <strong><em>deleted</em></strong> text, and <span class="badge">&lt;ins&gt;</span> shows newly <strong><em>inserted</em></strong> text.</li>
+            </ul>
+            <br><hr><br>
+            <p><strong>Quick Fact:</strong> Do you know that there's a CSS property which can do the same work as the <span class="badge">&lt;s&gt;</span> tag? You set <span class="badge">text-decoration: line-through;</span> inside the <span class="badge">&lt;style&gt;</span> tag (if your CSS is being done inside the <span class="badge">&lt;head&gt;</span> part) and write the tag's name, or the class it is set to. Then, inside curly braces, write this code!</p>
+            <div class="code-container">
+                <span class="code-label">HTML</span>
+Buy now for only &lt;s&gt;$50&lt;/s&gt; $25!<br>
+&lt;p&gt;My favorite color is &lt;del&gt;blue&lt;/del&gt; &lt;ins&gt;purple&lt;/ins&gt;.&lt;/p&gt;<br>
+&lt;small&gt;&copy; 2026 Syntax Bytes. Terms and Conditions&lt;/small&gt;</div>
+
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <p>Buy now for only <s>$50</s> $25!</p>
+                <p>My favorite color is <del>blue</del> <ins>purple</ins>.</p>
+                <p><small>© 2026 Syntax Bytes. Terms and Conditions</small></p>
+            </div>
+<br><hr><br>
+                       <h3>Part 4: Interactive Dropdowns & Collapsible Sections</h3>
+            <p>These built-in HTML structures allow you to hide and reveal information dynamically without needing complex JavaScript configurations:</p>
+            <ul>
+                <li><span class="badge">&lt;details&gt; &lt;/details&gt;</span> & <span class="badge">&lt;summary&gt; &lt;/summary&gt;</span> &rarr; Creates a clickable drop-down disclosure box. The <span class="badge">&lt;summary&gt;</span> tag acts as the clickable title heading.</li><br>
+                <li><span class="badge">&lt;datalist&gt; &lt;/datalist&gt;</span> &rarr; Joins forces with a standard text field element to offer a responsive and smart autocomplete suggestions dropdown menu list as the user types. </li>
+            </ul>
+            <br><hr><br>
+            <p><strong>Quick Fact:</strong> UI stands for <strong><em>User Interface</em></strong>. It occurs when humans interact with a device, app or website. Some key components include input controls (buttons, text fields, checkboxes or drop-down menus), navigational elements (scrolling or searching bars), visual styling (icons, color palettes and spacing) and informational components (progress bars).</p>
+            <div class="code-container">
+                <span class="code-label">HTML</span>
+&lt;details&gt;<br>
+&nbsp;&nbsp;&lt;summary&gt;Click to see a secret hint!&lt;/summary&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;The hidden treasure is behind the door!&lt;/p&gt;<br>
+&lt;/details&gt;<br>
+<br>
+&lt;input list="coding-languages" placeholder="Choose a language..."&gt;<br>
+&lt;datalist id="coding-languages"&gt;<br>
+&nbsp;&nbsp;&lt;option value="HTML"&gt;<br>
+&nbsp;&nbsp;&lt;option value="CSS"&gt;<br>
+&nbsp;&nbsp;&lt;option value="JavaScript"&gt;<br>
+&lt;/datalist&gt;</div>
+
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <details>
+                    <summary>Click to see a secret hint!</summary>
+                    <p>The hidden treasure is behind the door!</p>
+                </details>
+                
+                <input list="coding-languages" placeholder="Choose a language...">
+                <datalist id="coding-languages">
+                    <option value="HTML">
+                    </option><option value="CSS">
+                    </option><option value="JavaScript">
+                </option></datalist>
+            </div>
+            <br><hr><br>
+                       <h3>Part 5: Smart Tools & UI Layouts</h3>
+            <p>These tags introduce rich interface modules like pop-up windows, keyboard keys, asset gauges, and graphics canvases directly to the document architecture:</p>
+            <ul>
+                <li><strong>&lt;kbd&gt;:</strong> Formats text to look like physical computer keyboard button keys.</li><br>
+                <li><strong>&lt;meter&gt;:</strong> Renders a visual status bar representing values inside an <span class="badge">&lt;option&gt;</span> tag. The values are set inside this tag using the <span class="badge">value="..."</span> attribute, and are always in decimal format.</li><br>
+                <li><span class="badge">&lt;dialog&gt; &lt;/dialog&gt;</span> &rarr; Creates a box-window container around the text.</li><br>
+                <li><span class="badge">&lt;canvas&gt; &lt;/canvas&gt;</span> &rarr; An empty container area designed for creating graphics, game animations, or sketches using JavaScript coordinates.</li>
+            </ul>
+
+            <br><hr><br>
+
+            <p><strong>Quick Fact:</strong> Attributes are always put inside tags, and are followed immediatel by an ="...". Inside the quotes you write the values.</p>
+            <div class="code-container">
+                <span class="code-label">HTML</span>
+&lt;p&gt;Press &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;S&lt;/kbd&gt; to save your code file.&lt;/p&gt;<br>
+&lt;p&gt;Storage Space usage status: &lt;meter value="0.7" min="0" max="1"&gt;70%&lt;/meter&gt;&lt;/p&gt;<br>
+&lt;canvas id="gameCanvas" width="200" height="60" style="border:2px dashed var(--secondary); background: #fff; margin-top: 5px; display: block; border-radius: 4px;"&gt;&lt;/canvas&gt;</div>
+
+            <div class="preview-box">
+                <span class="preview-label">Live Browser Preview:</span>
+                <p>Press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save your code file.</p>
+                <p>Storage Space usage status: <meter value="0.7" min="0" max="1" style="width: 150px; height: 18px; vertical-align: middle;"></meter> (70%)</p>
+                <canvas id="gameCanvas" width="200" height="50" style="border:2px dashed var(--secondary); background: #fff; margin-top: 5px; display: block; border-radius: 4px;"></canvas>
+            </div>
+
+            <div class="nav-buttons">
+                <button onclick="showChapter(7)">&larr; Previous</button>
+                <button onclick="showChapter(9)">Next Chapter &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Chapter 8 -->
+        <div id="ch-9" class="chapter">
+            <h1>Chapter 8: Next Steps</h1>
+            <p>Congratulations! You've officially finished the introductory guide to HTML syntax for <strong>Syntax Bytes</strong>.</p>
+            <p>By combining lists, text elements, interactive form items, and grouping layout panels inside structural container boxes, you possess the foundations necessary to script structural interface wires efficiently.</p>
+            <p>From here, you will learn to build multi-page architectures, structure complex tables, and begin integrating styling engines via Cascading Style Sheets (CSS).</p>
+            <p>Keep writing code, breaking designs, and fixing them up!</p>
+            <div class="nav-buttons">
+                <button onclick="showChapter(8)">&larr; Previous</button>
+                <button onclick="showChapter(1)">Restart Book &circlearrowright;</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showChapter(chapNum) {
+            // Hide all chapters
+            const chapters = document.querySelectorAll('.chapter');
+            chapters.forEach(ch => ch.classList.remove('active'));
+
+            // Deactivate all sidebar nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Show target selected chapter item
+            const targetChap = document.getElementById('ch-' + chapNum);
+            if(targetChap) {
+                targetChap.classList.add('active');
+            }
+
+            // Highlight target sidebar active node item button link
+            const targetLink = document.getElementById('link-' + chapNum);
+            if(targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // Scroll to top of main view screen window safely
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
